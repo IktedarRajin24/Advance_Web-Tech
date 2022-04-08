@@ -5,82 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\deliveryman;
 use App\Http\Requests\StoredeliverymanRequest;
 use App\Http\Requests\UpdatedeliverymanRequest;
+use Illuminate\Http\Request;
 
 class DeliverymanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public Function dashboard(){
+        $deliveryman = deliveryman::all()->first();
+        return view('User.profile')->with('deliveryman',$deliveryman);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public Function deliverymanEdit(Request $request){
+        $deliveryman = deliveryman::where('id', $request->id)->first();
+        return view('User.deliverymanEdit')->with('deliveryman',$deliveryman);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoredeliverymanRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoredeliverymanRequest $request)
-    {
-        //
+    public Function deliverymanEditSubmitted(Request $request){
+        $deliveryman = deliveryman::where('id', $request->id)->first();
+        $deliveryman->name = $request->name;
+        $deliveryman->email = $request->email;
+        $deliveryman->phone = $request->phone;
+        $deliveryman->address = $request->address;
+        $deliveryman->password = $request->password;
+        $deliveryman->save();
+        return view('User.profile')->with('deliveryman',$deliveryman);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\deliveryman  $deliveryman
-     * @return \Illuminate\Http\Response
-     */
-    public function show(deliveryman $deliveryman)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\deliveryman  $deliveryman
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(deliveryman $deliveryman)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatedeliverymanRequest  $request
-     * @param  \App\Models\deliveryman  $deliveryman
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatedeliverymanRequest $request, deliveryman $deliveryman)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\deliveryman  $deliveryman
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(deliveryman $deliveryman)
-    {
-        //
-    }
 }

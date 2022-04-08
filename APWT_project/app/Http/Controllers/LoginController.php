@@ -28,10 +28,18 @@ class LoginController extends Controller
                             ->first();
         if($deliveryman){
             $request->session()->put('deliveryman',$deliveryman->name);
-            //return view('pages.customer.customerDashboard')->with('deliveryman', $deliveryman);
+            if ($request->remember) {
+                setcookie('remember',$request->name, time()+36000);
+            }else{
+                setcookie('remember',"");
+            }
 
-            return "done";
+            return redirect()-> route('orderDetails');
         }
         return back();
+    }
+    public Function logout(){
+        session()->forget('deliveryman');
+        return redirect()->route('login');
     }
 }

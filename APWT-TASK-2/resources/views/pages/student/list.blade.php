@@ -11,13 +11,17 @@
                 <tr>
                     <th>Name</th>
                     <th>ID</th>
-                    <th>DoB</th>
+                    <th>E-mail</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
                 @foreach($students as $student)
                 <tr>
                     <td>{{$student-> name}}</td>
-                    <td>{{$student-> id}}</td>
-                    <td>{{$student-> dob}}</td>
+                    <td>{{$student-> student_id}}</td>
+                    <td>{{$student-> email}}</td>
+                    <td><a href="/studentEdit/{{$student->id}}/{{$student->name}}">Edit</a></td>
+                    <td><a href="/studentDelete/{{$student->id}}/{{$student->name}}">Delete</a></td>
                 </tr>
                 @endforeach
 

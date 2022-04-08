@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +18,7 @@ use App\Http\Controllers\StudentController;
 |
 */
 
-Route::get('/home', [PagesController::class, 'home'])->name('home');
+Route::get('/', [PagesController::class, 'home'])->name('home');
 
 Route::get('/products', [PagesController::class, 'products'])->name('products');
 
@@ -30,12 +33,27 @@ Route::get('/user/{id}', function($id){
 });
 
 Route::get('/studentList', [StudentController::class, 'studentList'])->name('studentList');
+Route::get('/studentEdit/{id}/{name}',[StudentController::class,'studentEdit'])->name('studentEdit');
+Route::post('/studentEdit',[StudentController::class,'studentEditSubmitted'])->name('studentEdit');
+
+Route::get('/studentDelete/{id}/{name}',[StudentController::class,'studentDelete'])->name('studentDelete');
 
 Route::get('/studentCreate', [StudentController::class, 'studentCreate'])->name('studentCreate');
 Route::post('/studentCreate', [StudentController::class, 'studentCreatesubmitted'])->name('studentCreate');
+Route::get('/teacherCreate', [TeacherController::class, 'teacherCreate'])->name('teacherCreate');
+Route::post('/teacherCreate', [TeacherController::class, 'teacherCreatesubmitted'])->name('teacherCreate');
+
+Route::get('/teacherList', [TeacherController::class, 'teacherList'])->name('teacherList');
+Route::get('/teacherDelete/{id}/{name}',[TeacherController::class,'teacherDelete'])->name('teacherDelete');
 
 Route::get('/login', [StudentController::class, 'login'])->name('login');
 Route::post('/login', [StudentController::class, 'loginsubmitted'])->name('login');
 
 Route::get('/contact', [StudentController::class, 'contact'])->name('contact');
 Route::post('/contact', [StudentController::class, 'contactsubmitted'])->name('contact');
+
+Route::get('/teacher/courses/{id}',[TeacherController::class,'teacherCourses'])->name('teacher.courses');
+
+Route::get('/courses',[CourseController::class,'courseTeacher'])->name('teacher.courses'); 
+
+Route::get('/login',[LoginController::class,'login'])->name('login');

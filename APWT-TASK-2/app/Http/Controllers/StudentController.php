@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\student;
 
 class StudentController extends Controller
 {
@@ -54,13 +55,20 @@ class StudentController extends Controller
             'email.required'=>'Please put your email'
         ]
     );
-        return "ok";
+        //return "ok";
+
+        $student = new student();
+        $student->name = $request->name;
+        $student->student_id = $request->id;
+        $student->email = $request->email;
+        $student->save();
+        return redirect()->route('studentList');
     }
     
     public function studentList(){
-        $student = array();
+        $students = student::all();
 
-        for($i= 0; $i< 10; $i++){
+        /*for($i= 0; $i< 10; $i++){
             $student = array(
                 "name"=> "Student".($i+1),
                 "id"=> "00".($i+1),
@@ -68,8 +76,35 @@ class StudentController extends Controller
             );
 
             $students[]= (object)$student;
-        }
+        }*/
+
+        //return $student;
 
         return view('pages.student.list')-> with('students', $students);
     }
+    public function studentEdit(Request $request){
+
+        $student = student::where('id', $request->id)->first();
+        return view('pages.student.studentEdit')-> with('student', $student);
+    }
+    public function studentEditSubmitted(Request $request){
+
+        $student = student::where('id', $request->id)->first();
+        $student->name = $request->name;
+        $student->student_id = $request->student_id;
+        $student->email = $request->email;
+        $student->save();
+
+        return redirect()->route('studentList');
+    }
+
+    public function studentDelete(Request $request){
+
+        $student = student::where('id', $request->id)->first();
+        $student->delete();
+
+        return redirect()->route('studentList');
+    }
 }
+
+

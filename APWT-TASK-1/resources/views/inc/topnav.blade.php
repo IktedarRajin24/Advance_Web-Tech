@@ -8,4 +8,8 @@
     <a href="{{'contactUs'}}" class="btn btn-primary">Contact us</a>
 
     <a href="{{'aboutUs'}}" class="btn btn-primary">About us</a>
+
+    <a href="{{'studentList'}}" class="btn btn-primary">Student List</a>
+
+
 </div>

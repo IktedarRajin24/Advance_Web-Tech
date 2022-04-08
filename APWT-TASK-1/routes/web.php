@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,9 @@ Route::get('/ourTeam', [PagesController::class, 'ourTeam']);
 Route::get('/aboutUs', [PagesController::class, 'aboutUs']);
 
 Route::get('/contactUs', [PagesController::class, 'contactUs']);
+
+Route::get('/user/{id}', function($id){
+    return "<b>The passed id is ".$id."</b>";
+});
+
+Route::get('/studentList', [StudentController::class, 'studentList']);
